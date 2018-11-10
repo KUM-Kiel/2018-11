@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>The future of passive seismic aquisition</title>
+<script src="screenfull.min.js"></script>
 <style>
 html {
   background: #fff;
@@ -23,6 +24,9 @@ html {
 }
 .slide.hidden {
   opacity: 0;
+}
+.fullscreen * {
+  cursor: none;
 }
 </style>
 </head>
@@ -53,41 +57,44 @@ html {
 <div class="slide"><img src="slides/0135.jpg"/></div>
 <div class="slide"><img src="slides/0140.jpg"/></div>
 <script>
-var slides = document.querySelectorAll(".slide")
-var slide = 0
-var showSlide = function(n) {
-  if (n < 0) n = 0
-  if (n >= slides.length) n = slides.length - 1
-  slides[n].className = 'slide'
-  for (var i = 0; i < slides.length; ++i) {
-    if (i != n) {
-      slides[i].className = 'slide hidden'
+;(function() {
+  var slides = document.querySelectorAll(".slide")
+  var slide = 0
+  var showSlide = function(n) {
+    if (n < 0) n = 0
+    if (n >= slides.length) n = slides.length - 1
+    slides[n].className = 'slide'
+    for (var i = 0; i < slides.length; ++i) {
+      if (i != n) {
+        slides[i].className = 'slide hidden'
+      }
     }
+    slide = n
   }
-  slide = n
-}
-showSlide(slide)
-document.addEventListener('keydown', function(e) {
-  console.log(e.key)
-  if (e.key == 'ArrowRight') {
-    showSlide(slide + 1)
-    e.preventDefault()
-  } else if (e.key == 'ArrowLeft') {
-    showSlide(slide - 1)
-    e.preventDefault()
-  } else if (e.key == 'f') {
-    var el = document.querySelector('html')
-    var fs =
-      el.requestFullscreen ||
-      el.mozRequestFullScreen ||
-      el.webkitRequestFullscreen ||
-      el.msRequestFullscreen
-    if (typeof fs === 'function') {
-      fs.call(el)
+  showSlide(slide)
+  document.addEventListener('keydown', function(e) {
+    if (e.key == 'ArrowRight') {
+      showSlide(slide + 1)
       e.preventDefault()
+    } else if (e.key == 'ArrowLeft') {
+      showSlide(slide - 1)
+      e.preventDefault()
+    } else if (e.key == 'f') {
+      if (screenfull.enabled) {
+        screenfull.toggle()
+        e.preventDefault()
+      }
     }
+  })
+  document.addEventListener('click', function() {
+    showSlide(slide + 1)
+  })
+  if (screenfull.enabled) {
+    screenfull.on('change', function() {
+      document.querySelector('body').className = screenfull.isFullscreen ? 'fullscreen' : ''
+    })
   }
-})
+})()
 </script>
 </body>
 </html>
