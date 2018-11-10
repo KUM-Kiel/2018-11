@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>The future of passive seismic aquisition</title>
+<style>
+html {
+  background: #fff;
+}
+.slide {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slide img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.slide.hidden {
+  opacity: 0;
+}
+</style>
+</head>
+<body>
+<div class="slide"><img src="0001.jpg"/></div>
+<div class="slide"><img src="0002.jpg"/></div>
+<div class="slide"><img src="0008.jpg"/></div>
+<div class="slide"><img src="0011.jpg"/></div>
+<div class="slide"><img src="0015.jpg"/></div>
+<div class="slide"><img src="0020.jpg"/></div>
+<div class="slide"><img src="0025.jpg"/></div>
+<div class="slide"><img src="0030.jpg"/></div>
+<div class="slide"><img src="0055.jpg"/></div>
+<div class="slide"><img src="0060.jpg"/></div>
+<div class="slide"><img src="0065.jpg"/></div>
+<div class="slide"><img src="0070.jpg"/></div>
+<div class="slide"><img src="0075.jpg"/></div>
+<div class="slide"><img src="0080.jpg"/></div>
+<div class="slide"><img src="0085.jpg"/></div>
+<div class="slide"><img src="0090.jpg"/></div>
+<div class="slide"><img src="0100.jpg"/></div>
+<div class="slide"><img src="0105.jpg"/></div>
+<div class="slide"><img src="0110.jpg"/></div>
+<div class="slide"><img src="0115.jpg"/></div>
+<div class="slide"><img src="0120.jpg"/></div>
+<div class="slide"><img src="0125.jpg"/></div>
+<div class="slide"><img src="0130.jpg"/></div>
+<div class="slide"><img src="0135.jpg"/></div>
+<div class="slide"><img src="0140.jpg"/></div>
+<script>
+var slides = document.querySelectorAll(".slide")
+var slide = 0
+var showSlide = function(n) {
+  if (n < 0) n = 0
+  if (n >= slides.length) n = slides.length - 1
+  slides[n].className = 'slide'
+  for (var i = 0; i < slides.length; ++i) {
+    if (i != n) {
+      slides[i].className = 'slide hidden'
+    }
+  }
+  slide = n
+}
+showSlide(slide)
+document.addEventListener('keydown', function(e) {
+  console.log(e.key)
+  if (e.key == 'ArrowRight') {
+    showSlide(slide + 1)
+    e.preventDefault()
+  } else if (e.key == 'ArrowLeft') {
+    showSlide(slide - 1)
+    e.preventDefault()
+  } else if (e.key == 'f') {
+    var el = document.querySelector('html')
+    var fs =
+      el.requestFullscreen ||
+      el.mozRequestFullScreen ||
+      el.webkitRequestFullscreen ||
+      el.msRequestFullscreen
+    if (typeof fs === 'function') {
+      fs.call(el)
+      e.preventDefault()
+    }
+  }
+})
+</script>
+</body>
+</html>
